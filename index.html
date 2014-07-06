@@ -11,46 +11,136 @@
 	<div class="content">
 		<h1 class="title">T<span class="kern">su</span>miki.</h1>
 		<h2 class="subtitle">Build Your Own Testbed</h2>
-		<p class="action">I want to build a <strike>testbed</strike> breakfast called <input name="name" type="text" required>.<br>It should contain:</p>
-		<div class="checklist">
-			<ul>
-				<li>
-					<input id="i1" type="checkbox">
-					<label for="i1">Eggs</label>
-					<ul class="sub">
-						<li>
-							<input name="i1" id="i11" type="radio">
-							<label for="i11">scrambled</label>
-						</li>
-						<li>
-							<input name="i1" id="i12" type="radio">
-							<label for="i12">boiled</label>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<input id="i2" type="checkbox">
-					<label for="i2">Bacon</label>
-				</li>
-				<li>
-					<input id="i3" type="checkbox">
-					<label for="i3">Toast</label>
-					<ul class="sub">
-						<li>
-							<input id="i31" type="checkbox">
-							<label for="i31">with Peanut Butter</label>
-						</li>
-						<li>
-							<input id="i32" type="checkbox">
-							<label for="i32">with Jam</label>
-						</li>
-					</ul>
-				</li>
-			</ul>
+		<div class="input">
+			<p class="action">I want to build a <strike>testbed</strike> breakfast called <input name="name" type="text" required>.<br>It should contain:</p>
+			<div class="checklist floatbox">
+				<ul></ul>
+			</div>
+			<a class="submit">
+				Show me how!
+			</a>
 		</div>
-		<a class="submit">
-			Go
-		</a>
+		<div class="instructions"></div>
 	</div>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script type="text/javascript">
+		var mappings;
+		$.get('mappings.json', function (d) {
+			mappings = d;
+			populate();
+		});
+
+		function populate () {
+			var id = 0;
+			var options = mappings.options;
+			for (var i in options) {
+				var $li = $('<li></li>');
+				var $input = $('<input>').attr({
+					'id': 'i' + id,
+					'type': 'checkbox',
+					'name': options[i].title
+				});
+				var $label = $('<label></label>').attr({
+					'for': 'i' + id
+				}).text(options[i].title);
+
+				$li.append($input).append($label);
+
+				if ('options' in options[i]) {
+					var $sub = $('<ul></ul>').addClass('sub');
+					var suboptions = options[i].options;
+					var jd = 0;
+					for (var j in suboptions) {
+						var $sli = $('<li></li>');
+						var $sin = $('<input>').attr({
+							'name': 'i' + id,
+							'id': 'i' + id + jd,
+							'type': options[i].type
+						}).data('name', suboptions[j]);
+						var $sla = $('<label></label>').attr({
+							'for': 'i' + id + jd++
+						}).text(suboptions[j]);
+
+						$sli.append($sin).append($sla);
+						$sub.append($sli);
+					}
+
+					$li.append($sub);
+				}
+
+				$('.checklist > ul').append($li);
+				id++;
+
+				$('li:first-child > input[type="radio"]').prop('checked', true);
+			}
+		}
+
+
+		$('a.submit').click(function () {
+			var $in = $('.checklist > ul > li > input:checked');
+			var $out = $('.instructions');
+			var m = mappings.mappings;
+			var n = 1;
+
+			if ($in.length < 1)
+				return;
+
+			$out.children().remove();
+			$('.input').addClass('hidden');
+
+			$in.each(function (i, e) {
+				var o = m[e.name];
+
+				var $title = $('<h2></h2>').text(o.title).addClass('floatbox down');
+				$out.append($title);
+
+				for (var h in o.text) {
+					var $text = $('<div></div>').attr({
+						'data-n': n++
+					}).addClass('floatbox down').text(o.text[h]);
+					$out.append($text);
+				}
+
+				var $sub = $(e).parent().find('ul input[type="radio"]:checked, ul input[type="checkbox"]:checked');
+				if ($sub.length > 0) {
+					$sub.each(function (j, f) {
+						var p = o[$(f).data('name')];
+						for (var j in p) { 
+							var $st = $('<div></div>').attr({
+								'data-n': n++
+							}).addClass('floatbox down').text(p[j]);
+							$out.append($st);
+						}
+					});
+				}
+			});
+
+			var th = $('.title').outerHeight(true) + $('.subtitle').outerHeight();
+			$('.instructions .floatbox').each(function (i, e) {
+				th += $(e).outerHeight(true);
+			});
+			if (th < $(window).height())
+				$('body').css('overflow', 'hidden');
+
+			var interval = setInterval(function () {
+				if ($('.down').length) {
+					var $thi = $('.down').first();
+					var $last = $thi.prevAll();
+					var th = $('.title').outerHeight(true);
+					var t = th;
+					$last.each(function (i, e) {
+						t += $(e).outerHeight(true);
+					});
+					console.log(t);
+					$thi.css('top', t + 'px').removeClass('down');
+				} else {
+					setTimeout(function () {
+						$('body').removeAttr('style');
+					}, 300);
+					clearInterval(interval);
+				}
+			}, 100);
+		});
+</script>
 </body>
 </html>

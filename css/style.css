@@ -88,18 +88,28 @@ h2.subtitle {
 	color: #fff;
 }
 
+.input {
+	width: 100%;
+	max-width: 560px;
+	transition: all 1s;
+}
+.input.hidden {
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+}
+
 p.action {
 	font-size: 16pt;
 	font-weight: 300;
 }
 
-.checklist {
+.floatbox {
 	padding: 1em;
-	/*margin: 0 -1em;*/
 	background: #eae8e6;
 	color: #3d3c3a;
 	border-radius: 4px;
-	box-shadow: 0 2px 1px rgba(0,0,0,.6);
+	box-shadow: 0 1px 2px rgba(0,0,0,.4);
 }
 
 .checklist ul {
@@ -177,4 +187,41 @@ a.submit:active:before {
 a.submit:active:after {
 	background: #4B5E4E;
 	box-shadow: inset 0 1px 1px 1px rgba(0,0,0,.4);
+}
+
+.instructions .floatbox {
+	width: 100%;
+	max-width: 560px;
+	position: absolute;
+	margin: 0 0 1em;
+	transition: all .4s ease-out;
+}
+.instructions .floatbox:before {
+	content: attr(data-n);
+	display: block;
+	position: absolute;
+	margin-left: calc(-4 * 1.375em);
+	width: 1.375em;
+	padding: 1em;
+	background: inherit;
+	margin-top: -1em;
+	text-align: center;
+	border-radius: 50%;
+	box-shadow: 0 1px 1px rgba(0,0,0,.4);
+}
+
+.instructions h2.floatbox {
+	font: 400 20pt 'Josefin Sans';
+	background: transparent;
+	padding: 0;
+	margin: 1em 0;
+	box-shadow: none;
+	color: #eae8e6;
+}
+.instructions h2.floatbox:before {
+	display: none;
+}
+
+.instructions .down {
+	top: 100%;
 }
