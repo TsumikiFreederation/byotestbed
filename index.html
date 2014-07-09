@@ -7,140 +7,86 @@
 	<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Aleo:300,400,700,300i,400i,700i">
 </head>
 <body>
-	<a href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/a6677b08c955af8400f44c6298f40e7d19cc5b2d/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png"></a>
-	<div class="content">
+	<a href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+	<header>
 		<h1 class="title">T<span class="kern">su</span>miki.</h1>
 		<h2 class="subtitle">Build Your Own Testbed</h2>
-		<div class="input">
-			<p class="action">I want to build a <strike>testbed</strike> breakfast called <input name="name" type="text" required>.<br>It should contain:</p>
-			<div class="checklist floatbox">
-				<ul></ul>
-			</div>
-			<a class="submit">
-				Show me how!
-			</a>
+		<div class="numbers">
+			<ul>
+				<li class="active">1</li>
+				<li>2</li>
+				<li>3</li>
+				<li>4</li>
+				<li>5</li>
+			</ul>
 		</div>
-		<div class="instructions"></div>
+	</header>
+	<div class="content">
+		<ol class="input">
+			<li class="question">
+				<p>
+					What types of devices does your experiment <em>need</em> to run on?
+				</p>
+				<input id="i10" type="checkbox">
+				<label for="i10">Linux</label>
+				<input id="i11" type="checkbox">
+				<label for="i11">Windows</label>
+				<input id="i12" type="checkbox">
+				<label for="i12">Mac</label>
+				<input id="i13" type="checkbox">
+				<label for="i13">BSD</label>
+				<input id="i14" type="checkbox">
+				<label for="i14">Android</label>
+				<input id="i15" type="checkbox">
+				<label for="i15">iOS</label>
+				<input id="i16" type="checkbox">
+				<label for="i16">Nokia</label>
+				<input id="i17" type="checkbox">
+				<label for="i17">Wireless router (OpenWRT)</label>
+				<input id="i18" type="checkbox">
+				<label for="i18">Raspberry Pi</label>
+				<input id="i19" type="checkbox">
+				<label for="i19">OLPC</label>
+			</li>
+			<li class="question">
+				<p>
+					Do you need to be able to control network functionality below the IP level (SDN, etc.)?
+				</p>
+				<input id="i20" type="radio">
+				<label for="i20">Yes</label>
+				<input id="i21" type="radio">
+				<label for="i21">No</label>
+			</li>
+			<li class="question">
+				<p>
+					Do experiments need to reload the OS kernel on the device?
+				</p>
+				<input id="i30" type="radio">
+				<label for="i30">Yes</label>
+				<input id="i31" type="radio">
+				<label for="i31">No</label>
+			</li>
+			<li class="question">
+				<p>
+					Do you need to write code using a specific language or have a substantial amount of pre-existing legacy code you need to use?
+				</p>
+				<input id="i40" type="radio">
+				<label for="i40">Specific language</label>
+				<input id="i41" type="radio">
+				<label for="i41">Legacy code</label>
+			</li>
+			<li class="question">
+				<p>
+					How will you get the devices in your testbed?
+				</p>
+				<input id="i50" type="radio">
+				<label for="i50">Dedicated hardware</label>
+				<input id="i51" type="radio">
+				<label for="i51">Running in background on end user devices</label>
+				<input id="i52" type="radio">
+				<label for="i52">Virtualize a single machine to emulate multiple systems and their networks</label>
+			</li>
+		</ol>
 	</div>
-	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script type="text/javascript">
-		var mappings;
-		$.get('mappings.json', function (d) {
-			mappings = d;
-			populate();
-		});
-
-		function populate () {
-			var id = 0;
-			var options = mappings.options;
-			for (var i in options) {
-				var $li = $('<li></li>');
-				var $input = $('<input>').attr({
-					'id': 'i' + id,
-					'type': 'checkbox',
-					'name': options[i].title
-				});
-				var $label = $('<label></label>').attr({
-					'for': 'i' + id
-				}).text(options[i].title);
-
-				$li.append($input).append($label);
-
-				if ('options' in options[i]) {
-					var $sub = $('<ul></ul>').addClass('sub');
-					var suboptions = options[i].options;
-					var jd = 0;
-					for (var j in suboptions) {
-						var $sli = $('<li></li>');
-						var $sin = $('<input>').attr({
-							'name': 'i' + id,
-							'id': 'i' + id + jd,
-							'type': options[i].type
-						}).data('name', suboptions[j]);
-						var $sla = $('<label></label>').attr({
-							'for': 'i' + id + jd++
-						}).text(suboptions[j]);
-
-						$sli.append($sin).append($sla);
-						$sub.append($sli);
-					}
-
-					$li.append($sub);
-				}
-
-				$('.checklist > ul').append($li);
-				id++;
-
-				$('li:first-child > input[type="radio"]').prop('checked', true);
-			}
-		}
-
-
-		$('a.submit').click(function () {
-			var $in = $('.checklist > ul > li > input:checked');
-			var $out = $('.instructions');
-			var m = mappings.mappings;
-			var n = 1;
-
-			if ($in.length < 1)
-				return;
-
-			$out.children().remove();
-			$('.input').addClass('hidden');
-
-			$in.each(function (i, e) {
-				var o = m[e.name];
-
-				var $title = $('<h2></h2>').text(o.title).addClass('floatbox down');
-				$out.append($title);
-
-				for (var h in o.text) {
-					var $text = $('<div></div>').attr({
-						'data-n': n++
-					}).addClass('floatbox down').text(o.text[h]);
-					$out.append($text);
-				}
-
-				var $sub = $(e).parent().find('ul input[type="radio"]:checked, ul input[type="checkbox"]:checked');
-				if ($sub.length > 0) {
-					$sub.each(function (j, f) {
-						var p = o[$(f).data('name')];
-						for (var j in p) { 
-							var $st = $('<div></div>').attr({
-								'data-n': n++
-							}).addClass('floatbox down').text(p[j]);
-							$out.append($st);
-						}
-					});
-				}
-			});
-
-			var th = $('.title').outerHeight(true) + $('.subtitle').outerHeight();
-			$('.instructions .floatbox').each(function (i, e) {
-				th += $(e).outerHeight(true);
-			});
-			if (th < $(window).height())
-				$('body').css('overflow', 'hidden');
-
-			var interval = setInterval(function () {
-				if ($('.down').length) {
-					var $thi = $('.down').first();
-					var $last = $thi.prevAll();
-					var th = $('.title').outerHeight(true);
-					var t = th;
-					$last.each(function (i, e) {
-						t += $(e).outerHeight(true);
-					});
-					console.log(t);
-					$thi.css('top', t + 'px').removeClass('down');
-				} else {
-					setTimeout(function () {
-						$('body').removeAttr('style');
-					}, 300);
-					clearInterval(interval);
-				}
-			}, 100);
-		});
-</script>
 </body>
 </html>
