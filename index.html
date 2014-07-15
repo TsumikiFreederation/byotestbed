@@ -1,92 +1,249 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tsumiki - Build Your Own Testbed</title>
-	<link rel="stylesheet" type="text/css" href="css/style.css">
-	<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="//brick.a.ssl.fastly.net/Aleo:300,400,700,300i,400i,700i">
+    <title>Tsumiki - Build Your Own Testbed</title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href='http://fonts.googleapis.com/css?family=Josefin+Sans:300,400,600' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Aleo:300,400,700,300i,400i,700i">
 </head>
 <body>
-	<a href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
-	<header>
-		<h1 class="title">T<span class="kern">su</span>miki.</h1>
-		<h2 class="subtitle">Build Your Own Testbed</h2>
-		<div class="numbers">
-			<ul>
-				<li class="active">1</li>
-				<li>2</li>
-				<li>3</li>
-				<li>4</li>
-				<li>5</li>
-			</ul>
-		</div>
-	</header>
-	<div class="content">
-		<ol class="input">
-			<li class="question">
-				<p>
-					What types of devices does your experiment <em>need</em> to run on?
-				</p>
-				<input id="i10" type="checkbox">
-				<label for="i10">Linux</label>
-				<input id="i11" type="checkbox">
-				<label for="i11">Windows</label>
-				<input id="i12" type="checkbox">
-				<label for="i12">Mac</label>
-				<input id="i13" type="checkbox">
-				<label for="i13">BSD</label>
-				<input id="i14" type="checkbox">
-				<label for="i14">Android</label>
-				<input id="i15" type="checkbox">
-				<label for="i15">iOS</label>
-				<input id="i16" type="checkbox">
-				<label for="i16">Nokia</label>
-				<input id="i17" type="checkbox">
-				<label for="i17">Wireless router (OpenWRT)</label>
-				<input id="i18" type="checkbox">
-				<label for="i18">Raspberry Pi</label>
-				<input id="i19" type="checkbox">
-				<label for="i19">OLPC</label>
-			</li>
-			<li class="question">
-				<p>
-					Do you need to be able to control network functionality below the IP level (SDN, etc.)?
-				</p>
-				<input id="i20" type="radio">
-				<label for="i20">Yes</label>
-				<input id="i21" type="radio">
-				<label for="i21">No</label>
-			</li>
-			<li class="question">
-				<p>
-					Do experiments need to reload the OS kernel on the device?
-				</p>
-				<input id="i30" type="radio">
-				<label for="i30">Yes</label>
-				<input id="i31" type="radio">
-				<label for="i31">No</label>
-			</li>
-			<li class="question">
-				<p>
-					Do you need to write code using a specific language or have a substantial amount of pre-existing legacy code you need to use?
-				</p>
-				<input id="i40" type="radio">
-				<label for="i40">Specific language</label>
-				<input id="i41" type="radio">
-				<label for="i41">Legacy code</label>
-			</li>
-			<li class="question">
-				<p>
-					How will you get the devices in your testbed?
-				</p>
-				<input id="i50" type="radio">
-				<label for="i50">Dedicated hardware</label>
-				<input id="i51" type="radio">
-				<label for="i51">Running in background on end user devices</label>
-				<input id="i52" type="radio">
-				<label for="i52">Virtualize a single machine to emulate multiple systems and their networks</label>
-			</li>
-		</ol>
-	</div>
+    <a href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <header>
+        <h1 class="title">T<span class="kern">su</span>miki.</h1>
+        <h2 class="subtitle">Build Your Own Testbed</h2>
+        <div class="numbers">
+            <ul>
+                <li class="active">1</li>
+                <li>2</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+            </ul>
+        </div>
+    </header>
+    <div class="content">
+        <ol class="input">
+            <li class="question">
+                <p>
+                    What types of devices does your experiment <em>need</em> to run on?
+                </p>
+                <input id="i10" name="i1" value="linux" type="checkbox">
+                <label for="i10">Linux</label>
+                <input id="i11" name="i1" value="windows" type="checkbox">
+                <label for="i11">Windows</label>
+                <input id="i12" name="i1" value="mac" type="checkbox">
+                <label for="i12">Mac</label>
+                <input id="i13" name="i1" value="bsd" type="checkbox">
+                <label for="i13">BSD</label>
+                <input id="i14" name="i1" value="android" type="checkbox">
+                <label for="i14">Android</label>
+                <input id="i15" name="i1" value="ios" type="checkbox">
+                <label for="i15">iOS</label>
+                <input id="i16" name="i1" value="nokia" type="checkbox">
+                <label for="i16">Nokia</label>
+                <input id="i17" name="i1" value="openwrt" type="checkbox">
+                <label for="i17">Wireless router (OpenWRT)</label>
+                <input id="i18" name="i1" value="pi" type="checkbox">
+                <label for="i18">Raspberry Pi</label>
+                <input id="i19" name="i1" value="olpc" type="checkbox">
+                <label for="i19">OLPC</label>
+            </li>
+            <li class="question">
+                <p>
+                    Do you need to be able to control network functionality below the IP level (SDN, etc.)?
+                </p>
+                <input id="i20" name="i2" type="radio">
+                <label for="i20">Yes</label>
+                <input id="i21" name="i2" type="radio">
+                <label for="i21">No</label>
+            </li>
+            <li class="question">
+                <p>
+                    Do experiments need to reload the OS kernel on the device?
+                </p>
+                <input id="i30" name="i3" type="radio">
+                <label for="i30">Yes</label>
+                <input id="i31" name="i3" type="radio">
+                <label for="i31">No</label>
+            </li>
+            <li class="question">
+                <p>
+                    Do you need to write code using a specific language or have a substantial amount of pre-existing legacy code you need to use?
+                </p>
+                <input id="i40" name="i4" type="radio">
+                <label for="i40">Specific language</label>
+                <input id="i41" name="i4" type="radio">
+                <label for="i41">Legacy code</label>
+            </li>
+            <li class="question">
+                <p>
+                    How will you get the devices in your testbed?
+                </p>
+                <input id="i50" name="i5" type="radio">
+                <label for="i50">Dedicated hardware</label>
+                <input id="i51" name="i5" type="radio">
+                <label for="i51">Running in background on end user devices</label>
+                <input id="i52" name="i5" type="radio">
+                <label for="i52">Virtualize a single machine to emulate multiple systems and their networks</label>
+            </li>
+        </ol>
+        <button>Build</button>
+    </div>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript">
+        var rec = false;
+        var stages = [['i1', 'i2', 'i3'], ['i4', 'i5']];
+
+        show(['i4', 'i5'], true);
+
+        stages.forEach(function (s, i) {
+            s.forEach(function (n) {
+                $(fetch(n)).on('change', function () {
+                    var after = [];
+                    stages.slice(i + 1).forEach(function (a) {
+                        after = after.concat(a);
+                    });
+                    show(after, true);
+                    rec = false;
+                    assess(i);
+                });
+            });
+        });
+
+        function assess (stage) {
+            if (!isComplete(stage)) return;
+
+            switch (stage) {
+                case 0:
+                if ($('#i30').is(':checked')) {
+                    var os = get('i1');
+                    if (test(os, ['android', 'ios', 'nokia', 'openwrt', 'pi', 'olpc']))
+                        recommend('GENI');
+                    else if (test(os, ['ios', 'nokia', 'openwrt', 'pi', 'olpc'], 1))
+                        recommend('ToMaTo');
+                    else
+                        recommend('contact');
+                }
+                break;
+            }
+
+            advance(stage);
+        }
+
+        function advance (stage) {
+            if (rec) return;
+            switch (stage) {
+                case -1:
+                return;
+                case 0:
+                show(['i4', 'i5']);
+                break;
+            }
+        }
+        
+        function recommend (testbed) {
+            alert(testbed);
+            rec = true;
+        }
+
+        /**
+         * Determines whether stage is complete
+         * 
+         * @param  {Number}  stage The stage number to check
+         * @return {Boolean}       Whether the stage is complete
+         */
+        function isComplete (stage) {
+            var names = stages[stage];
+            return names.filter(function (n) {
+                return $(fetch(n) + ':checked').length;
+            }).length == names.length;
+        }
+
+        /**
+         * Show/hide the inputs with given name
+         * 
+         * @param  {[String] or String} name The name(s) or input(s) to
+         *                                   show/hide
+         * @param  {Boolean}            hide Whether to hide instead of show
+         */
+        function show (name, hide) {
+            var $e = $(fetch(name)).parent('li');
+            hide ? $e.hide() : $e.show();
+        }
+
+        /**
+         * Gets the value(s) of input(s) with given name
+         * 
+         * @param  {[String] or String} name The name(s) of inputs to get value
+         *                                   from
+         * @return {[String] or String}      The values of the selected inputs
+         */
+        function get (name) {
+            var $elem = $(fetch(name) + ':checked');
+            if ($elem.length > 1) {
+                return $elem.map(function (i, e) {
+                    return e.value;
+                }).toArray();
+            } else if ($elem.length == 1) {
+                return $elem[0].value;
+            }
+        }
+
+        /**
+         * Returns the jQuery selector for a name or an array of names
+         * @param  {[String] or String} name The name(s) to select
+         * @return {String}                  A jQuery selector string that
+         *                                   would select the inputs with given
+         *                                   name(s)
+         */
+        function fetch (name) {
+            if (name.constructor == String)
+                return '[name="' + name + '"]';
+            
+            var s = '';
+            name.forEach(function (n) {
+                s += fetch(n) + ',';
+            });
+
+            return s.substr(0, s.length - 1);
+        }
+
+        /**
+         * Tests for items in ref against items in src
+         * 
+         * @param  {[any]}  src  The source array - containing all
+         *                       items actually selected
+         * @param  {[any]}  ref  The reference array - containing all
+         *                       items that should [not] be selected
+         * @param  {Number} type The rule of testing:
+         *                        - 0 for all items in ref must be in src
+         *                        - 1 for no items in ref must be in src
+         *                        - 2 for at least one item in ref must be in
+         *                            src
+         *                        - 3 for not all items in ref must be in src
+         * 
+         * @return {Boolean}     The test result
+         */
+        function test (src, ref, type) {
+            switch (type) {
+                case 0:
+                return ref.filter(function (d) {
+                    return src.indexOf(d) > -1;
+                }).length == ref.length;
+                break;
+                case 1:
+                return ref.filter(function (d) {
+                    return src.indexOf(d) > -1;
+                }).length == 0;
+                break;
+                case 2:
+                return !test(src, ref, 1);
+                break;
+                case 3:
+                return !test(src, ref, 0);
+                break;
+            }
+        }
+    </script>
 </body>
 </html>
