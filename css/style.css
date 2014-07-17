@@ -32,7 +32,7 @@ h2.subtitle {
 .numbers {
 	position: fixed;
 	top: 1em;
-	left: calc(50% - 280px);
+	left: calc(50% - 240px);
 	padding-top: 4pt;
 	font-size: 12pt;
 }
@@ -63,6 +63,8 @@ h2.subtitle {
 	width: 100%;
 	max-width: 560px;
 	margin: 4em auto 0;
+	padding: 0 40px;
+	box-sizing: border-box;
 }
 
 .input {
@@ -84,4 +86,35 @@ h2.subtitle {
 .question label {
 	display: table-cell;
 	margin: .4em 0;
+}
+
+@media all and (max-width: 1200px) {
+	h2.subtitle {
+		display: none;
+	}
+}
+
+@media all and (max-width: 840px) {
+	h1.title {
+		display: none;
+	}
+
+	.input {
+		font-size: 14pt;
+	}
+
+	.fork {
+		display: none;
+	}
+}
+
+@media all and (max-width: 560px) {
+	.numbers {
+		left: 40px;
+		font-size: 10pt;
+	}
+
+	.input {
+		font-size: 12pt;
+	}
 }

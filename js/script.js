@@ -1,14 +1,76 @@
 var rec = false;
-var stages = [['i1', 'i2', 'i3'], ['i4', 'i5']];
-
-show(['i4', 'i5'], true);
+var stages = [{
+    questions: [1, 2, 3],
+    recommendations: [
+        {
+            name: 'GENI',
+            test: function () {
+                return get(3) && get(1) && test(get(1), [
+                    'android',
+                    'ios',
+                    'nokia',
+                    'openwrt',
+                    'pi',
+                    'olpc'
+                ], 1);
+            }
+        },
+        {
+            name: 'ToMaTo',
+            test: function () {
+                return get(3) && get(1) && test(get(1), [
+                    'ios',
+                    'nokia',
+                    'openwrt',
+                    'pi',
+                    'olpc'
+                ], 1);
+            }
+        },
+        {
+            name: 'contact',
+            test: function () {
+                return get(3);
+            }
+        }
+    ]
+}, {
+    questions: [4, 5],
+    recommendations: [
+        {
+            name: 'Planetlab',
+            test: function () {
+                return (get(1) == null || get(1) == 'linux')
+                    && !get(2)
+                    && (get(5) == 'dedicated' || get(5) == 'virtualize');
+            }
+        },
+        {
+            name: 'Lind',
+            test: function () {
+                return !get(2)
+                    && !get(3)
+                    && get(4);
+            }
+        },
+        {
+            name: 'contact',
+            test: function () {
+                return get(2) || get(3) || get(4);
+            }
+        }
+    ]
+}, {
+    questions: [6, 7, 8, 9, 10]
+}];
 
 stages.forEach(function (s, i) {
-    s.forEach(function (n) {
+    s.questions.forEach(function (n) {
         $(fetch(n)).on('change', function () {
+            console.log('change');
             var after = [];
             stages.slice(i + 1).forEach(function (a) {
-                after = after.concat(a);
+                after = after.concat(a.questions);
             });
             show(after, true);
             rec = false;
@@ -17,21 +79,17 @@ stages.forEach(function (s, i) {
     });
 });
 
+$(fetch(1)).change();
+
 function assess (stage) {
     if (!isComplete(stage)) return;
 
-    switch (stage) {
-        case 0:
-        if ($('#i30').is(':checked')) {
-            var os = get('i1');
-            if (test(os, ['android', 'ios', 'nokia', 'openwrt', 'pi', 'olpc']))
-                recommend('GENI');
-            else if (test(os, ['ios', 'nokia', 'openwrt', 'pi', 'olpc'], 1))
-                recommend('ToMaTo');
-            else
-                recommend('contact');
+    var recommendations = stages[stage].recommendations;
+    for (var i in recommendations) {
+        if (recommendations[i].test()) {
+            recommend(recommendations[i].name)
+            break;
         }
-        break;
     }
 
     advance(stage);
@@ -42,8 +100,11 @@ function advance (stage) {
     switch (stage) {
         case -1:
         return;
-        case 0:
-        show(['i4', 'i5']);
+        case stages.length - 1:
+        return;
+        default:
+        show(stages[stage + 1].questions);
+        assess(stage + 1);
         break;
     }
 }
@@ -59,9 +120,11 @@ function recommend (testbed) {
  * @return {Boolean}       Whether the stage is complete
  */
 function isComplete (stage) {
-    var names = stages[stage];
+    var names = stages[stage].questions;
     return names.filter(function (n) {
-        return $(fetch(n) + ':checked').length;
+        var f = fetch(n);
+        var s = f + ':checked,' + f + '[type="checkbox"]';
+        return $(s).length;
     }).length == names.length;
 }
 
@@ -91,20 +154,27 @@ function get (name) {
             return e.value;
         }).toArray();
     } else if ($elem.length == 1) {
-        return $elem[0].value;
+        if ($elem[0].value == "1") return true;
+        else if ($elem[0].value == "0") return false;
+        else return $elem[0].value;
+    } else {
+        return null;
     }
 }
 
 /**
  * Returns the jQuery selector for a name or an array of names
- * @param  {[String] or String} name The name(s) to select
- * @return {String}                  A jQuery selector string that
- *                                   would select the inputs with given
- *                                   name(s)
+ * @param  {[String], String, Number} name The name(s) to select
+ * @return {String}                        A jQuery selector
+ *                                         string that would select
+ *                                         the inputs with given
+ *                                         name(s)
  */
 function fetch (name) {
     if (name.constructor == String)
         return '[name="' + name + '"]';
+    else if (typeof(name) == 'number')
+        return '[name="q' + name + '"]';
     
     var s = '';
     name.forEach(function (n) {
@@ -131,6 +201,8 @@ function fetch (name) {
  * @return {Boolean}     The test result
  */
 function test (src, ref, type) {
+    if (src.constructor != Array || ref.constructor != Array)
+        return;
     switch (type) {
         case 0:
         return ref.filter(function (d) {

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Aleo:300,400,700,300i,400i,700i">
 </head>
 <body>
-    <a href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
+    <a class="fork" href="https://github.com/TsumikiFreederation"><img style="position: absolute; top: 0; right: 0; border: 0; z-index: 99" src="https://camo.githubusercontent.com/38ef81f8aca64bb9a64448d0d70f1308ef5341ab/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6461726b626c75655f3132313632312e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png"></a>
     <header>
         <h1 class="title">T<span class="kern">su</span>miki.</h1>
         <h2 class="subtitle">Build Your Own Testbed</h2>
@@ -27,64 +27,110 @@
                 <p>
                     What types of devices does your experiment <em>need</em> to run on?
                 </p>
-                <input id="i10" name="i1" value="linux" type="checkbox">
+                <input id="i10" name="q1" value="linux" type="checkbox">
                 <label for="i10">Linux</label>
-                <input id="i11" name="i1" value="windows" type="checkbox">
+                <input id="i11" name="q1" value="windows" type="checkbox">
                 <label for="i11">Windows</label>
-                <input id="i12" name="i1" value="mac" type="checkbox">
+                <input id="i12" name="q1" value="mac" type="checkbox">
                 <label for="i12">Mac</label>
-                <input id="i13" name="i1" value="bsd" type="checkbox">
+                <input id="i13" name="q1" value="bsd" type="checkbox">
                 <label for="i13">BSD</label>
-                <input id="i14" name="i1" value="android" type="checkbox">
+                <input id="i14" name="q1" value="android" type="checkbox">
                 <label for="i14">Android</label>
-                <input id="i15" name="i1" value="ios" type="checkbox">
+                <input id="i15" name="q1" value="ios" type="checkbox">
                 <label for="i15">iOS</label>
-                <input id="i16" name="i1" value="nokia" type="checkbox">
+                <input id="i16" name="q1" value="nokia" type="checkbox">
                 <label for="i16">Nokia</label>
-                <input id="i17" name="i1" value="openwrt" type="checkbox">
+                <input id="i17" name="q1" value="openwrt" type="checkbox">
                 <label for="i17">Wireless router (OpenWRT)</label>
-                <input id="i18" name="i1" value="pi" type="checkbox">
+                <input id="i18" name="q1" value="pi" type="checkbox">
                 <label for="i18">Raspberry Pi</label>
-                <input id="i19" name="i1" value="olpc" type="checkbox">
+                <input id="i19" name="q1" value="olpc" type="checkbox">
                 <label for="i19">OLPC</label>
             </li>
             <li class="question">
                 <p>
                     Do you need to be able to control network functionality below the IP level (SDN, etc.)?
                 </p>
-                <input id="i20" name="i2" type="radio">
+                <input id="i20" value="1" name="q2" type="radio">
                 <label for="i20">Yes</label>
-                <input id="i21" name="i2" type="radio">
+                <input id="i21" value="0" name="q2" type="radio">
                 <label for="i21">No</label>
             </li>
             <li class="question">
                 <p>
                     Do experiments need to reload the OS kernel on the device?
                 </p>
-                <input id="i30" name="i3" type="radio">
+                <input id="i30" value="1" name="q3" type="radio">
                 <label for="i30">Yes</label>
-                <input id="i31" name="i3" type="radio">
+                <input id="i31" value="0" name="q3" type="radio">
                 <label for="i31">No</label>
             </li>
             <li class="question">
                 <p>
                     Do you need to write code using a specific language or have a substantial amount of pre-existing legacy code you need to use?
                 </p>
-                <input id="i40" name="i4" type="radio">
-                <label for="i40">Specific language</label>
-                <input id="i41" name="i4" type="radio">
-                <label for="i41">Legacy code</label>
+                <input id="i40" value="1" name="q4" type="radio">
+                <label for="i40">Yes</label>
+                <input id="i41" value="0" name="q4" type="radio">
+                <label for="i41">No</label>
             </li>
             <li class="question">
                 <p>
                     How will you get the devices in your testbed?
                 </p>
-                <input id="i50" name="i5" type="radio">
+                <input id="i50" value="dedicated" name="q5" type="radio">
                 <label for="i50">Dedicated hardware</label>
-                <input id="i51" name="i5" type="radio">
+                <input id="i51" value="background" name="q5" type="radio">
                 <label for="i51">Running in background on end user devices</label>
-                <input id="i52" name="i5" type="radio">
+                <input id="i52" value="virtualize" name="q5" type="radio">
                 <label for="i52">Virtualize a single machine to emulate multiple systems and their networks</label>
+            </li>
+            <li class="question">
+                <p>
+                    The sandbox provides access to create files, send TCP and UDP traffic, and run a subset of Python on devices. Do your experimenters require other functionality?
+                </p>
+                <input id="i60" value="sensors" name="q6" type="checkbox">
+                <label for="i60">Access to sensors on smartphone (accelerometer, microphone, etc.)</label>
+                <input id="i61" value="tun" name="q6" type="checkbox">
+                <label for="i61">TUN/TUP support</label>
+                <input id="i62" value="other" name="q6" type="checkbox">
+                <label for="i62">Other</label>
+            </li>
+            <li class="question">
+                <p>
+                    Will your testbed be disconnected from the Internet?
+                </p>
+                <input id="i70" value="1" name="q7" type="radio">
+                <label for="i70">Yes</label>
+                <input id="i71" value="0" name="q7" type="radio">
+                <label for="i71">No</label>
+            </li>
+            <li class="question">
+                <p>
+                    What types of experimenter tools do you want to include/use?
+                </p>
+                <input id="i80" value="shell" name="q8" type="checkbox">
+                <label for="i80">Interactive parallel shell</label>
+                <input id="i81" value="deployment" name="q8" type="checkbox">
+                <label for="i81">Automated deployment kit for long running services</label>
+                <input id="i82" value="visualization" name="q8" type="checkbox">
+                <label for="i82">Data/network visualization tool</label>
+            </li>
+            <li class="question">
+                <p>
+                    Is there more than one experimenter on your testbed? If you and your colleagues will share credentials, answer "No".
+                </p>
+                <input id="i90" value="1" name="q9" type="radio">
+                <label for="i90">Yes</label>
+                <input id="i91" value="0" name="q9" type="radio">
+                <label for="i91">No</label>
+            </li>
+            <li class="question">
+                <p>
+                    Name your testbed:
+                </p>
+                <input id="i101" name="q10" type="text">
             </li>
         </ol>
         <button>Build</button>
