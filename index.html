@@ -13,11 +13,9 @@
         <h2 class="subtitle">Build Your Own Testbed</h2>
         <div class="numbers">
             <ul>
-                <li class="active">1</li>
-                <li>2</li>
-                <li>3</li>
-                <li>4</li>
-                <li>5</li>
+                <li class="active">Questions</li>
+                <li class="pointer">&gt;</li>
+                <li class="disabled">Recommendation</li>
             </ul>
         </div>
     </header>
@@ -111,11 +109,15 @@
                     What types of experimenter tools do you want to include/use?
                 </p>
                 <input id="i80" value="shell" name="q8" type="checkbox">
-                <label for="i80">Interactive parallel shell</label>
+                <label for="i80" title="The most commonly used experiment management tool is the parallel shell seash [66], written by Justin Cappos and Leonard Law at NYU. This program allows code deployment in response to the experimenter’s commands. It is commonly used in education and in small research tasks where the">Interactive parallel shell</label>
                 <input id="i81" value="deployment" name="q8" type="checkbox">
-                <label for="i81">Automated deployment kit for long running services</label>
+                <label for="i81" title="For large scale or long running services, Overlord [53] (written by Alan Loh and Justin Samuel at the University of Washington) is more commonly used. This allows an experimenter to control programmatically where their program is deployed either by using existing functions or writing custom functions for their deployment.">Automated deployment kit for long running services</label>
                 <input id="i82" value="visualization" name="q8" type="checkbox">
-                <label for="i82">Data/network visualization tool</label>
+                <label for="i82" title="Jakob Kallin at Chalmers University of Technology in Sweden recently developed Seastorm [67], an experiment management tool with visualization functionality built in. When an experiment is deployed using Seastorm, network flow information is automatically captured and visualized.">Data/network visualization tool</label>
+                <input id="i83" value="visualization" name="q8" type="checkbox">
+                <label for="i83" title="In order to provide effective monitoring and to back haul experiment data, Scott Baker at the Univer- sity of Arizona developed Owl [54]. Owl automatically posts and collates data from sandbox instances in the user program and stores them on a centralized server.">Experiment monitoring tool</label>
+                <input id="i83" value="visualization" name="q8" type="checkbox">
+                <label for="i83" title="The TryRepy! program [83] (authored by Lukas Pu ̈hringer and Albert Rafetseder at the University of Vienna) allows a user to run Repy scripts using only a web browser.">A browser-based tool to execute Repy scripts</label>
             </li>
             <li class="question">
                 <p>
@@ -133,7 +135,7 @@
                 <input id="i101" name="q10" type="text">
             </li>
         </ol>
-        <button>Build</button>
+        <button class="action" disabled>Build</button>
     </div>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script type="text/javascript" src="js/script.js"></script>

@@ -1,5 +1,6 @@
 body {
-	font: 12pt/1.4em Aleo;
+	font: 12pt Aleo;
+	line-height: 1.4em;
 	margin: 0;
 }
 
@@ -43,7 +44,6 @@ h2.subtitle {
 }
 .numbers li {
 	display: inline-block;
-	margin-right: 6pt; 
 	font-weight: 300;
 	color: #888;
 }
@@ -51,26 +51,31 @@ h2.subtitle {
 	font-weight: 400;
 	color: #000;
 }
-.numbers li:not(:last-child):after {
-	content: '>';
+.numbers li.disabled {
+	color: #ddd;
+}
+.numbers li.pointer {
 	font-size: 10pt;
-	margin-left: 8pt;
+	margin: 0 8pt;
 	line-height: 12pt;
 	font-weight: 300;
+}
+.numbers li:not(.pointer):not(.active):not(.disabled):hover {
+	text-decoration: underline;
+	cursor: pointer;
 }
 
 .content {
 	width: 100%;
 	max-width: 560px;
-	margin: 4em auto 0;
+	margin: 3em auto 2em;
 	padding: 0 40px;
 	box-sizing: border-box;
+	font-size: 16pt;
+	font-weight: 300;
 }
 
 .input {
-	font-size: 16pt;
-	line-height: 20pt;
-	font-weight: 300;
 	padding: 0;
 	margin: 0;
 }
@@ -81,11 +86,78 @@ h2.subtitle {
 .question input {
 	font-size: inherit;
 	float: left;
-	margin: .25em .5em .25em 0;
+	margin: 0 .5em 0 0;
+	height: 1.3em;
 }
 .question label {
 	display: table-cell;
 	margin: .4em 0;
+	line-height: 1.4em;
+}
+.question label[title]:after {
+	content: '?';
+	color: #04f;
+	font-size: 10pt;
+	font-weight: 400;
+	line-height: 1em;
+	display: inline-block;
+	margin: 0 .4em;
+}
+
+button.action {
+	width: 100%;
+	background: #111;
+	border: none;
+	height: 2.4em;
+	color: #eee;
+	font: 300 12pt 'Aleo';
+	text-transform: uppercase;
+	outline: none;
+	cursor: pointer;
+}
+button.action:hover {
+	background: #222;
+	color: #fff;
+}
+button.action:active {
+	background: #000;
+	color: #ddd;
+}
+button.action:disabled {
+	background: #444;
+	color: #aaa;
+	cursor: default;
+	pointer-events: none;
+}
+
+.recontainer p {
+	margin: 0;
+}
+.recontainer .rec {
+	font-size: 32pt;
+	font-weight: 400;
+	margin: .6em 0;
+}
+.recontainer .desc {
+	font-size: 12pt;
+	line-height: 1.4em;
+}
+
+.side {
+	margin-top: 2em;
+	font-size: 12pt;
+}
+.side h2 {
+	font-weight: 300;
+}
+.side li {
+	margin-bottom: 1em;
+}
+.side li p {
+	margin: 0;
+}
+.side li p + p {
+	font-weight: 400;
 }
 
 @media all and (max-width: 1200px) {
@@ -99,8 +171,12 @@ h2.subtitle {
 		display: none;
 	}
 
-	.input {
+	.content {
 		font-size: 14pt;
+	}
+
+	.side {
+		font-size: 11pt;
 	}
 
 	.fork {
@@ -114,7 +190,11 @@ h2.subtitle {
 		font-size: 10pt;
 	}
 
-	.input {
+	.content {
 		font-size: 12pt;
+	}
+
+	.side {
+		font-size: 10pt;
 	}
 }
