@@ -100,7 +100,27 @@ function advance (stage) {
         case stages.length - 1:
         recommend({
             name: 'RepyV2',
-            desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint fugiat sequi eos aperiam, a perspiciatis vero delectus, reiciendis ut voluptate adipisci facere velit corrupti ipsum. Animi explicabo, nam modi iste?'
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint fugiat sequi eos aperiam, a perspiciatis vero delectus, reiciendis ut voluptate adipisci facere velit corrupti ipsum. Animi explicabo, nam modi iste?',
+            instructions: [
+            {
+                name: 'Custom installer builder',
+                test: function () {
+                    return test(get(6), 'other', 0);
+                }
+            },
+            {
+                name: 'Lookup service',
+                test: function () {
+                    return get(7);
+                }
+            },
+            {
+                name: 'Clearinghouse',
+                test: function () {
+                    return get(9);
+                }
+            }
+            ]
         });
         break;
         default:
@@ -209,8 +229,10 @@ function fetch (name) {
  */
 function test (src, ref, type) {
     if (!src) return true;
-    if (src.constructor != Array || ref.constructor != Array)
+    if (src.constructor != Array)
         src = [src];
+    if (ref.constructor != Array)
+        ref = [ref];
 
     switch (type) {
         case 0:
@@ -250,10 +272,49 @@ $('.action').on('click', function () {
     if (!rec)
         return;
 
+    if ($('.recontainer').length) {
+        $('.instructions').remove();
+        $('.recontainer').show();
+        $('.side').show();
+        $('.numbers li.active').removeClass('active');
+        $('.numbers li:nth-child(3)').addClass('active');
+        return;
+    }
+
     var $rec = $('<div>').addClass('recontainer');
     $rec.append($('<p>').text('We recommend:'));
     $rec.append($('<p>').addClass('rec').text(rec.name));
     $rec.append($('<p>').addClass('desc').text(rec.desc));
+
+    if (rec.instructions) {
+        var parts = [];
+        for (var i in rec.instructions) {
+            if (rec.instructions[i].test())
+                parts.push(rec.instructions[i]);
+        }
+
+        if (parts.length) {
+            var $button = $('<button>').text('Instructions').click(function () {
+                $rec.hide();
+                $side.hide();
+
+                var $ins = $('<div>').addClass('instructions');
+                for (var i in parts) {
+                    $ins.append($('<p>').text(parts[i].name));
+                }
+
+                $('.content').append($ins);
+                $('.numbers li.active').removeClass('active');
+                $('.numbers li:last-child').addClass('active');
+            });
+
+            $rec.append($button);
+            $('.numbers ul').append($('<li>').addClass('pointer').text('>'));
+            $('.numbers ul').append($('<li>').text('Instructions').click(function () {
+                $button.click();
+            }));
+        }
+    }
 
     var $side = $('<div>').addClass('side');
     var $h2 = $('<h2>').text('Your responses:');
@@ -281,7 +342,9 @@ $('.action').on('click', function () {
     $('.content').append($side);
 
     $('.numbers li:first-child').removeClass('active');
-    $('.numbers li:last-child').addClass('active');
+    $('.numbers li:nth-child(3)').addClass('active');
+
+    $(window).scrollTop(0);
 });
 
 $('.numbers li:first-child').click(function () {
@@ -291,11 +354,11 @@ $('.numbers li:first-child').click(function () {
     $('.recontainer').remove();
     $('.content').children().show();
 
+    $('.numbers li.active').removeClass('active');
     $('.numbers li:first-child').addClass('active');
-    $('.numbers li:last-child').removeClass('active');
 });
 
-$('.numbers li:last-child').click(function () {
+$('.numbers li:nth-child(3)').click(function () {
     if ($('.action').prop('disabled')) return;
     $('.action').click();
 });
