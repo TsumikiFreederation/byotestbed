@@ -32,8 +32,8 @@ h2.subtitle {
 
 button {
 	width: 100%;
-	margin-top: 2em;
 	background: #111;
+	margin-top: 2em;
 	border: none;
 	height: 2.4em;
 	color: #eee;
@@ -134,9 +134,14 @@ button:disabled {
 	font: 300 1em aleo;
 	padding: 1em .4em;
 	outline: none;
+	float: none;
 }
 .question input[type='text']:focus {
 	border-bottom-style: solid;
+}
+
+button.build {
+	margin-top: 0;
 }
 
 .recontainer p {

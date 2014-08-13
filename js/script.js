@@ -68,17 +68,28 @@ var stages = [{
         }
     ]
 }, {
-    questions: [6, 7, 8, 9, 10]
+    questions: [6],
+    recommendations: [
+        {
+            name: 'Seattle',
+            desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nam dicta iusto necessitatibus accusamus, culpa quasi, consequuntur reprehenderit tempore commodi sed enim rem cupiditate, dolorum delectus explicabo numquam molestiae aut itaque.',
+            test: function () {
+                return get(6) == null;
+            }
+        }
+    ]
+}, {
+    questions: [7, 8, 9, 10]
 }];
 
 function assess (stage) {
     if (!isComplete(stage)) {
-        $('.action').prop('disabled', true);
+        $('.build').prop('disabled', true);
         $('.numbers li:last-child').addClass('disabled');
         return;
     }
 
-    $('.action').prop('disabled', false);
+    $('.build').prop('disabled', false);
     $('.numbers li:last-child').removeClass('disabled');
 
     var recommendations = stages[stage].recommendations;
@@ -104,20 +115,23 @@ function advance (stage) {
             instructions: [
             {
                 name: 'Custom installer builder',
+                desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo eaque molestiae esse voluptates cupiditate mollitia eligendi amet fugit est, nostrum quos, quibusdam non deleniti. Aut odio esse molestiae architecto assumenda.',
                 test: function () {
-                    return test(get(6), 'other', 0);
+                    return test(get(6), 'other', 0) || get(8);
                 }
             },
             {
                 name: 'Lookup service',
+                desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident officia vitae nisi ut iste, dolor pariatur quis quia accusantium consequatur perspiciatis nihil magni quasi expedita maxime, illum aliquam adipisci ducimus?',
                 test: function () {
                     return get(7);
                 }
             },
             {
                 name: 'Clearinghouse',
+                desc: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto, delectus quos quas aut totam, voluptate minus sunt quaerat iure nesciunt nihil, molestiae voluptas, dolorum nisi vero doloribus similique magni minima!',
                 test: function () {
-                    return get(9);
+                    return get(10);
                 }
             }
             ]
@@ -268,7 +282,7 @@ stages.forEach(function (s, i) {
     });
 });
 
-$('.action').on('click', function () {
+$('.build').on('click', function () {
     if (!rec)
         return;
 
@@ -300,7 +314,8 @@ $('.action').on('click', function () {
 
                 var $ins = $('<div>').addClass('instructions');
                 for (var i in parts) {
-                    $ins.append($('<p>').text(parts[i].name));
+                    $ins.append($('<h3>').text(parts[i].name));
+                    $ins.append($('<p>').text(parts[i].desc));
                 }
 
                 $('.content').append($ins);
@@ -352,15 +367,17 @@ $('.numbers li:first-child').click(function () {
 
     $('.side').remove();
     $('.recontainer').remove();
+    $('.instructions').remove();
     $('.content').children().show();
 
+    $('.numbers li:nth-child(4), .numbers li:nth-child(5)').remove();
     $('.numbers li.active').removeClass('active');
     $('.numbers li:first-child').addClass('active');
 });
 
 $('.numbers li:nth-child(3)').click(function () {
-    if ($('.action').prop('disabled')) return;
-    $('.action').click();
+    if ($('.build').prop('disabled')) return;
+    $('.build').click();
 });
 
 $(fetch(1)).change();
