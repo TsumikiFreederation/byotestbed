@@ -6,7 +6,6 @@ var stages = [{
         {
             name: 'GENI',
             desc: 'GENI (Global Environment for Network Innovations) provides a virtual laboratory for networking and distributed systems research and education. It is well suited for exploring networks at scale, thereby promoting innovations in network science, security, services and applications. GENI allows experimenters to (1) Obtain compute resources from locations around the United States; (2) Connect compute resources using Layer 2 networks in topologies best suited to their experiments; (3) Install custom software or even custom operating systems on these compute resources; (4) Control how network switches in their experiment handle traffic flows; (5) Run their own Layer 3 and above protocols by installing protocol software in their compute resources and by providing flow controllers for their switches.',
-            url: 'GENI page: http://www.geni.net/',
             test: function () {
                 return get(3) && test(get(1), [
                     'android',
@@ -300,7 +299,6 @@ $('.build').on('click', function () {
     $rec.append($('<p>').text('We recommend:'));
     $rec.append($('<p>').addClass('rec').text(rec.name));
     $rec.append($('<p>').addClass('desc').text(rec.desc));
-    $rec.append($('<p>').addClass('url').text(rec.url));
 
     if (rec.instructions) {
         var parts = [];
